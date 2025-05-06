@@ -1,0 +1,40 @@
+require('dotenv').config();
+const express = require("express");
+const app = express();
+app.use(express.json());
+const mongoose = require("mongoose");
+const cors=require("cors");
+const userRouter=require("./Routes/user.js");
+
+const MONGO_URL =process.env.ATLAS_URL;
+
+const URL = "mongodb://127.0.0.1:27017/rideit";
+
+async function main() {
+  try {
+    await mongoose.connect(URL);
+    console.log("Connected to db");
+  } catch (err) {
+    console.error("Database connection error:", err);
+  }
+}
+main();
+
+const corsOptions = {
+  origin: 'http://localhost:5173', 
+  methods: ['GET', 'POST','DELETE','PATCH'], 
+  credentials: true, 
+};
+
+app.use(cors(corsOptions));
+app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.send("Api is running!!");
+});
+
+app.use("/rideit/auth",userRouter);
+
+app.listen(process.env.PORT, () => {
+  console.log("Server is listening at port 8080");
+});
