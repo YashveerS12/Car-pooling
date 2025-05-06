@@ -8,7 +8,7 @@ const userRouter=require("./Routes/user.js");
 
 const MONGO_URL =process.env.ATLAS_URL;
 
-const URL = "mongodb://127.0.0.1:27017/rideit";
+const URL = "mongodb+srv://yashikachandra84:SSwWJL0BwT7ZZ427@cluster0.u4xgo0x.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 async function main() {
   try {
